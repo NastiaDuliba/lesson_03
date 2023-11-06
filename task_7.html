@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/fonts.css">
+   <link rel="stylesheet" href="css/reset.css">
+   <link rel="stylesheet" href="css/style.css">
+   <script src="js/script.js"></script>
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <title>Lesson 2</title>
+</head>
+<body>
+   <style>
+      .cell{
+         width: 40px;
+         height: 40px;
+         border: 2px solid black;
+         margin: 15px;
+         display: inline-block;
+         cursor: pointer;
+      }
+      .closed{
+        background-color: grey;
+      }
+      .mine{
+         background-color: red;
+      }
+      .free{
+         background-color: green;
+      }
+  
+        
+        
+   
+      </style>
+   <div class="wrapper">
+      <main class="main">
+      <div class="main__container">
+         <h2>завдання № 2</h2>
+         <div id="app">  
+           
+               <div>
+              <label >
+               Пошук:
+               <input type="text" v-model="searchText">
+              </label>
+           </div>
+           <div>
+            <ul v-if="filtereList.length">
+               <li v-for="(worker, index ) in filtereList " :key="index">
+
+              {{worker}}
+               </li>
+            </ul>
+            <div v-else> нема</div>
+           </div>
+      
+   </main>
+
+
+<script>
+// Задача 7. Динамічний пошук. Є список працівників і поле пошуку. При введенні відображаються усі, які містять вказаний фрагмент
+
+  
+  const {createApp} = Vue
+
+ createApp({
+  data(){
+     return{   
+      workers:[
+             'John',
+              'Peter',
+              'Olga',
+              'Tanya',
+              'Stepan',
+              'Oksana',
+      ],
+     searchText:null,
+      
+     }
+    
+  
+
+  
+  },
+
+
+computed:{
+   filtereList(){
+      if (!this.searchText)  return this.workers
+      const searchParm = this.searchText.toLowerCase()
+      return this.workers.filter(worker => worker.toLowerCase().includes(searchParm))
+         
+      
+   }
+   
+ 
+ 
+   },
+   methods:{
+   
+     
+     
+
+ 
+},
+   
+   
+   
+ 
+  
+
+
+}).mount('#app')
+  
+  </script>
+   </div>
+</body>
+</html>

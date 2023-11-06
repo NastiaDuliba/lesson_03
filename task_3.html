@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/fonts.css">
+   <link rel="stylesheet" href="css/reset.css">
+   <link rel="stylesheet" href="css/style.css">
+   <script src="js/script.js"></script>
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <title>Lesson 2</title>
+</head>
+<body>
+   <style>
+      .frost{
+         background-color: white;
+         
+      }
+      .low{
+         background-color: blue;
+        
+      }
+      .middle{
+         background-color: green;
+      }
+      .high{
+         background-color: red;
+      }
+        
+        
+   
+      </style>
+   <div class="wrapper">
+      <main class="main">
+      <div class="main__container">
+         <h2>завдання № 2</h2>
+         <div id="app">  
+            <label >
+               Temp:
+               <input  type="number" v-model="temp" :class="{ [
+                  tempClass] :temp} " >
+
+            </label>
+          
+
+   
+          
+
+
+
+         </div>
+      </div>
+   
+   </main>
+</div>
+
+<script>
+//    <!-- Задача 2. З клавіатури вводиться температура. Змінювати колір фону у залежності від значення:
+//•	менше нуля – білий -frost
+//•	від 0 до 10 – синій -low,
+//•	від 11 до 22 – зелений -middle
+//•	вище 22 – червоний -high
+//Реалізувати з класами і стилями. -->
+
+
+
+  
+  const {createApp} = Vue
+ const TAX_PERCENTAGE = 3
+ const DOLLAR_RATE = 38
+ const EURO_RATE = 40
+ createApp({
+  data(){
+     return{ 
+      temp:null,
+    
+
+
+
+      
+      
+     }
+  
+
+  
+  },
+
+
+computed:{
+   tempClass(){
+     let resClass
+      if (this.temp <0)  resClass = 'frost'
+      else if(this.temp < 10) resClass = 'low'
+     else if(this.temp <22)  resClass = 'middle'
+     else resClass = 'high'
+
+       return resClass
+    
+
+
+         
+      
+   },
+ 
+ 
+   },
+   methods:{
+     
+
+ 
+},
+   
+   
+   
+ 
+  
+
+
+}).mount('#app')
+  
+  </script>
+</body>
+</html>

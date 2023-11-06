@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/fonts.css">
+   <link rel="stylesheet" href="css/reset.css">
+   <link rel="stylesheet" href="css/style.css">
+   <script src="js/script.js"></script>
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <title>Lesson 2</title>
+</head>
+<body>
+   <style>
+      .business-class_bg{
+         background: url('img/business-class.jpeg') 0 0 no-repeat;
+      }
+      .econom-class_bg{
+         background: url('img/Sky.jpeg') 0 0 no-repeat;
+      }
+        
+        
+   
+      </style>
+   <div class="wrapper">
+      <main class="main">
+      <div class="main__container">
+         <h2>завдання № 2</h2>
+         <div id="app">  
+            <div>сумма на рахунку : {{balance}} </div>
+            <div>
+               <label >
+                  Зарахувати на рахунок : 
+                  <input  v-model="addManyValue" @focus="onFocus" type="number" >
+                  <button @click="onAdd" >Зарахувати</button>
+               </label>
+            </div>
+            <div>
+               <label >
+                  Зняти  з рахунку : 
+                  <input  v-model="withdrawMoneyValue"  @focus="onFocus"type="number" >
+                  <button @click="onWithdraw"  >Зняти</button>
+               </label>
+            </div>
+            <div>
+               Відсоток за обслуговування : {{taxRateLabel}} грн
+            </div>
+            <div> Сумма в Євро: {{euroValue}}</div>
+            <div> Сумма в Долларах {{dollarValue}} </div>
+            <div v-if="message">{{message}}</div>
+
+
+   
+          
+
+
+
+         </div>
+      </div>
+   
+   </main>
+</div>
+
+<script>
+//1) Спочатку сума дорівнює 0грн. Змінити суму у гривнях можна або зарахуванням на рахунок, або зняттям.
+//2) Сума автоматично переводиться у долари та євро (фіксований курс задається у data).
+//3) можливість зарахувати суму (контролювати, щоб не була від’ємною)
+//4) можливість зняти (щоб не можна зняти більше ніж є на рахунку)
+//5) при виконанні зняття і зарахування коштів вираховувати 3% від суми (відображати кількість відсотків автоматично)
+
+//При зміні суми :
+//- якщо було зняття, то суму відоражати червоним
+//- якщо було зарахування, то суму відображати зеленим
+//Якщо сума валюти менша за 100 то відображати червоним кольором, інакше - зеленим -->
+
+
+
+
+  
+  const {createApp} = Vue
+ const TAX_PERCENTAGE = 3
+ const DOLLAR_RATE = 38
+ const EURO_RATE = 40
+ createApp({
+  data(){
+     return{ 
+      balance: 0,
+      addManyValue: null,
+      withdrawMoneyValue:null,
+      message: null,
+
+
+
+
+      
+      
+     }
+  
+
+  
+  },
+
+
+computed:{
+   taxRate(){
+      let sum = (this.addManyValue?? 0) + (this.withdrawMoneyValue??0)
+      return sum * TAX_PERCENTAGE/100
+   },
+   taxRateLabel(){
+      return this.taxRate.toFixed(2)
+   },
+   dollarValue(){
+      return (this.balance/DOLLAR_RATE).toFixed(2)
+   },
+   euroValue(){
+      return (this.balance/EURO_RATE).toFixed(2)
+   }
+
+ 
+   },
+   methods:{
+      onAdd(){
+         if (this.addManyValue <0) {
+            this.message = 'Недостатньо коштів'
+            return 
+         }
+         this.balance += this.addManyValue - this.taxRate
+      },
+      onWithdraw(){
+         const valueToSubtract = this.withdrawMoneyValue +this.taxRate
+         if (this.balance <valueToSubtract) {
+            this.message = 'Недостатньо коштів'
+            return 
+         }
+         
+         this.balance -= valueToSubtract
+         this.withdrawMoneyValue = null
+      },
+      onFocus(){
+         this.message = null
+      }
+  
+
+ 
+},
+   
+   
+   
+ 
+  
+
+
+}).mount('#app')
+  
+  </script>
+</body>
+</html>

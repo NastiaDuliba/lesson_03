@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/fonts.css">
+   <link rel="stylesheet" href="css/reset.css">
+   <link rel="stylesheet" href="css/style.css">
+   <script src="js/script.js"></script>
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <title>Lesson 2</title>
+</head>
+<body>
+   <style>
+      .low{
+         background: orange;
+      }
+      .normal{
+         background: green;
+      }
+      .danger{
+         background-color: red;
+      }
+  
+        
+        
+   
+      </style>
+   <div class="wrapper">
+      <main class="main">
+      <div class="main__container">
+         <h2>завдання № 2</h2>
+         <div id="app">  
+            <div>
+               <label >
+                  Дозволена швидкість 
+                  <input type="number" v-model="limitSpeed"  >
+               </label>
+            </div>
+            <div>
+               <label >
+                  Поточна швидкість
+                  <input type="number" v-model="currentSpeedValue" :disabled="!limitSpeed" :class="{
+                     [currentClass]: isDataValid
+                  }">
+               </label>
+            </div>
+            <div v-show="isAlertVisible">увага</div>
+           
+           
+          
+
+   
+          
+
+
+
+         </div>
+      </div>
+   
+   </main>
+</div>
+
+<script>
+   // <!-- Задача 3. Вводиться дозволена швидкість і поточна швидкість авто. Якщо не введено дозволену швидкість, то елемент введення поточної швидкості заблокований. Якщо швидкість менше 50% дозволеної, то колір input – оранжевий, якщо від 50% до 100% - зелений, вище 100% - червоний. Якщо значення вище 90% починає блимати повідомлення «Увага!»     -->
+
+
+
+  
+  const {createApp} = Vue
+const INTERVAL_MS = 10000
+ createApp({
+  data(){
+     return{ 
+      limitSpeed: null,
+      currentSpeedValue: null,
+      isAlertVisible: false,
+      intervalId:null,
+     
+    
+
+
+
+      
+      
+     }
+  
+
+  
+  },
+
+
+computed:{
+   currentSpeed:{
+      get(){
+         return this.currentSpeedValue
+      },
+      set(newVal){
+         this.currentSpeedValue = newVal
+
+         if ( (newVal*100) / this.limitSpeed > 90 ) 
+         this.showAlert()
+         else this.stopShoeAlert()
+            
+         
+         
+
+      }
+   },
+   isDataValid(){
+      return this.currentSpeedValue && this.limitSpeed
+
+   },
+  currentClass(){
+   let currentRate = this.currentSpeedValue* 100/this.limitSpeed
+   let currentClass = null
+   if (currentRate<50) currentClass = 'low'
+   else if (currentRate <100)  currentClass = 'normal'
+   else  currentClass = 'danger'
+   return currentClass
+      
+   
+
+  },
+
+ 
+ 
+   },
+   methods:{
+      showAlert(){
+         if(!this.intervalId){
+         this.intervalId = setInterval(()=>{
+            this.isAlertVisible =!this.isAlertVisible
+         },INTERVAL_MS)
+      }
+      },
+      stopShoeAlert(){
+         if (this.intervalId) {
+            clearInterval(this.intervalId)
+            this.isAlertVisible = false
+            this.intervalId = null
+            
+         }
+
+      }
+     
+
+ 
+},
+   
+   
+   
+ 
+  
+
+
+}).mount('#app')
+  
+  </script>
+</body>
+</html>

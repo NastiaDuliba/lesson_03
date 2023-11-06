@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE-edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/fonts.css">
+   <link rel="stylesheet" href="css/reset.css">
+   <link rel="stylesheet" href="css/style.css">
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <title>Lesson 2</title>
+</head>
+<body>
+   <style>
+   
+   .card {
+      width: 100px;
+      height: 100px;
+      border: 1px solid #ccc;
+      margin: 10px;
+      display: inline-block;
+      text-align: center;
+      cursor: pointer;
+    }
+    .selected {
+      border: 2px solid blue;
+    }
+    .correct {
+      border: 2px solid green;
+    }
+    .incorrect {
+      border: 2px solid red;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+  <label >
+    Кількість прикладів
+    <input type="number" v-model="numberExamples" >
+  </label>
+  <label > відповідь
+    <input v-model="answer" type="number" name="" id="">
+  </label>
+  <button @click="example">Start</button>
+  <div>{{ex}}</div>
+     
+   
+     
+  </div>
+  <script>
+    //Задача 13. Тренажер додавання. Вводимо загальну кількість прикладів і натискаємо на кнопку «Старт». Після запуску (натисканні на кнопку «Старт») кожні 10 секунд (10 секунд між завданнями) користувачу задають випадковий приклад з додавання двох цифр і робиться перевірка. Формується список  тих, які він відповів правильно, і які він відповів неправильно. Загальна кількість прикладів вводиться.
+    const app = new Vue({
+     
+  data() {
+    return {
+      //isClicked: false,
+      //IsRemove: false,
+      words: [
+        { id: 0, en: "table", ua: "стіл", isClickedEn:false, isClickedUa:false, isRedUa:false, isRedEn:false,},
+        
+        { id: 1, en: "car", ua: "авто",  isClickedEn:false, isClickedUa:false, isRedEn:false, isRedUa:false, },
+        { id: 2, en: "pen", ua: "ручка",  isClickedEn:false, isClickedUa:false, isRedEn:false, isRedUa:false, },
+        { id: 3, en: "water", ua: "вода",  isClickedEn:false, isClickedUa:false, isRedEn:false, isRedUa:false, },
+        
+      ],
+      selectedPair :[],
+    };
+  },
+   
+      methods: {
+        randomExample(){
+          Math.floor(Math.random() * (100 - 0)) + 0;
+        },
+        example(){
+         
+
+          for (let i = 0; i < this.numberExamples; i++) {
+            for (let j = 0; j < 2; j++) {
+            this.ex.push(this.randomExample) 
+            }
+
+            
+          }
+
+        }
+
+       
+        },
+       
+    }).mount("#app");
+  </script>
+</body>
+</html>
+<!--numberExamples: null,
+examples : { 
+  ex :[]
+},
+answer: null,-->
